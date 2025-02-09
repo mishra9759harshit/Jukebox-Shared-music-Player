@@ -1,0 +1,83 @@
+MDScreen:
+    name: "party_mode"
+    md_bg_color: 0.05, 0.05, 0.05, 1
+
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: "10dp"
+        padding: "20dp"
+
+        MDLabel:
+            text: "🎉 Party Mode"
+            font_size: "26sp"
+            halign: "center"
+            bold: True
+            theme_text_color: "Custom"
+            text_color: 1, 1, 1, 1
+
+        MDLabel:
+            text: "Create or Join a Party to Sync Music!"
+            font_size: "16sp"
+            halign: "center"
+            theme_text_color: "Secondary"
+
+        MDBoxLayout:
+            orientation: "horizontal"
+            spacing: "10dp"
+            size_hint_y: None
+            height: "60dp"
+            pos_hint: {"center_x": 0.5}
+
+            MDRaisedButton:
+                text: "📶 Host Party"
+                size_hint_x: 0.5
+                on_release: app.start_party()
+
+            MDRaisedButton:
+                text: "🔗 Join Party"
+                size_hint_x: 0.5
+                on_release: app.join_party()
+
+        MDBoxLayout:
+            orientation: "vertical"
+            size_hint_y: None
+            height: "200dp"
+            spacing: "10dp"
+            pos_hint: {"center_x": 0.5}
+
+            MDLabel:
+                text: "Connected Users:"
+                font_size: "18sp"
+                halign: "center"
+                bold: True
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+
+            ScrollView:
+                MDList:
+                    id: user_list
+
+        MDBoxLayout:
+            orientation: "horizontal"
+            spacing: "10dp"
+            size_hint_y: None
+            height: "60dp"
+            pos_hint: {"center_x": 0.5}
+
+            MDRaisedButton:
+                text: "🎵 Sync Music"
+                size_hint_x: 0.5
+                on_release: app.sync_music()
+
+            MDRaisedButton:
+                text: "❌ Leave Party"
+                size_hint_x: 0.5
+                md_bg_color: 1, 0, 0, 1
+                on_release: app.leave_party()
+
+        Image:
+            id: qr_code
+            source: "assets/qr_placeholder.png"
+            size_hint: None, None
+            size: "200dp", "200dp"
+            pos_hint: {"center_x": 0.5, "center_y": 0.1}"

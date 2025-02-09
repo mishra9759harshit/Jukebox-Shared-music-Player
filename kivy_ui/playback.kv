@@ -1,0 +1,80 @@
+MDScreen:
+    name: "playback"
+    md_bg_color: 0.05, 0.05, 0.05, 1  # Dark background for a sleek look
+
+    MDFloatLayout:
+
+        MDLabel:
+            text: "🎧 Now Playing"
+            font_size: "26sp"
+            pos_hint: {"center_x": 0.5, "top": 0.95}
+            bold: True
+            theme_text_color: "Custom"
+            text_color: 1, 1, 1, 1
+
+        Image:
+            id: album_art
+            source: "assets/music_icon.png"
+            size_hint: None, None
+            size: "200dp", "200dp"
+            pos_hint: {"center_x": 0.5, "center_y": 0.7}"
+
+        MDLabel:
+            id: song_label
+            text: "No Song Selected"
+            font_size: "18sp"
+            pos_hint: {"center_x": 0.5, "center_y": 0.55}
+            theme_text_color: "Custom"
+            text_color: 1, 1, 1, 1
+            halign: "center"
+
+        # Animated Music Visualizer (Waveform)
+        Widget:
+            canvas.before:
+                Color:
+                    rgba: 0, 1, 0, 1  # Green waveform color
+                Line:
+                    width: 2
+                    points: root.visualizer_points  # Real-time music waveform
+
+        MDSlider:
+            id: progress_bar
+            min: 0
+            max: 100
+            value: 0
+            pos_hint: {"center_x": 0.5, "center_y": 0.4}
+            size_hint_x: 0.8
+            on_touch_up: app.seek_music(self.value)  # Allow seeking
+
+        MDBoxLayout:
+            size_hint_y: None
+            height: "80dp"
+            pos_hint: {"center_x": 0.5, "center_y": 0.25}
+
+            MDIconButton:
+                icon: "skip-previous"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                on_release: app.previous_song()
+
+            MDIconButton:
+                id: play_pause_btn
+                icon: "play-circle"
+                theme_text_color: "Custom"
+                text_color: 0, 1, 0, 1
+                on_release: app.play_pause()
+
+            MDIconButton:
+                icon: "skip-next"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                on_release: app.next_song()
+
+        MDSlider:
+            id: volume_slider
+            min: 0
+            max: 100
+            value: 50
+            pos_hint: {"center_x": 0.5, "center_y": 0.1}
+            size_hint_x: 0.6
+            on_value: app.change_volume(self.value)

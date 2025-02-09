@@ -1,0 +1,110 @@
+#:import MDNavigationDrawer kivymd.uix.navigationdrawer.MDNavigationDrawer
+#:import MDScreen kivymd.uix.screen.MDScreen
+#:import MDBoxLayout kivymd.uix.boxlayout.MDBoxLayout
+#:import MDRaisedButton kivymd.uix.button.MDRaisedButton
+#:import MDIconButton kivymd.uix.button.MDIconButton
+#:import MDScreenManager kivymd.uix.screenmanager.MDScreenManager
+#:import MDFloatLayout kivymd.uix.floatlayout.MDFloatLayout
+#:import Clock kivy.clock.Clock
+
+MDScreen:
+    md_bg_color: 0.1, 0.1, 0.1, 1  # Dark Background
+
+    MDBoxLayout:
+        orientation: "vertical"
+
+        MDToolbar:
+            title: "🎶 Party Jukebox"
+            left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+            elevation: 10
+            md_bg_color: 0.15, 0.15, 0.15, 1
+            specific_text_color: 1, 1, 1, 1
+
+        MDScreenManager:
+            id: screen_manager
+
+            MDScreen:
+                name: "home"
+
+                MDFloatLayout:
+
+                    MDLabel:
+                        text: "Welcome to Party Jukebox 🎧"
+                        pos_hint: {"center_x": 0.5, "top": 0.95}
+                        font_size: "26sp"
+                        bold: True
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+
+                    MDBoxLayout:
+                        orientation: "vertical"
+                        size_hint_x: 0.8
+                        spacing: "15dp"
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+                        MDRaisedButton:
+                            text: "▶ Now Playing"
+                            size_hint_x: 1
+                            on_release: app.change_screen("playback")
+
+                        MDRaisedButton:
+                            text: "🎶 View Playlist"
+                            size_hint_x: 1
+                            on_release: app.change_screen("playlist")
+
+                        MDRaisedButton:
+                            text: "📡 Party Mode"
+                            size_hint_x: 1
+                            on_release: app.change_screen("party_mode")
+
+                        MDRaisedButton:
+                            text: "⚙ Settings"
+                            size_hint_x: 1
+                            on_release: app.change_screen("settings")
+
+    MDNavigationDrawer:
+        id: nav_drawer
+
+        MDBoxLayout:
+            orientation: "vertical"
+            padding: "10dp"
+
+            MDLabel:
+                text: "🎵 Menu"
+                font_size: "22sp"
+                bold: True
+                halign: "center"
+
+            ScrollView:
+                MDList:
+                    OneLineIconListItem:
+                        text: "Now Playing"
+                        on_release: 
+                            screen_manager.current = "playback"
+                            nav_drawer.set_state("close")
+                        IconLeftWidget:
+                            icon: "play-circle"
+
+                    OneLineIconListItem:
+                        text: "View Playlist"
+                        on_release: 
+                            screen_manager.current = "playlist"
+                            nav_drawer.set_state("close")
+                        IconLeftWidget:
+                            icon: "playlist-music"
+
+                    OneLineIconListItem:
+                        text: "Party Mode"
+                        on_release: 
+                            screen_manager.current = "party_mode"
+                            nav_drawer.set_state("close")
+                        IconLeftWidget:
+                            icon: "wifi"
+
+                    OneLineIconListItem:
+                        text: "Settings"
+                        on_release: 
+                            screen_manager.current = "settings"
+                            nav_drawer.set_state("close")
+                        IconLeftWidget:
+                            icon: "cog"

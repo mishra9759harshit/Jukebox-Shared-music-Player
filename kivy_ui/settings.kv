@@ -1,0 +1,94 @@
+MDScreen:
+    name: "settings"
+    md_bg_color: 0.05, 0.05, 0.05, 1  # Dark background for a sleek look
+
+    MDLabel:
+        text: "Settings ⚙"
+        font_size: "26sp"
+        pos_hint: {"center_x": 0.5, "top": 0.95}
+        theme_text_color: "Custom"
+        text_color: 1, 1, 1, 1
+        bold: True
+
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: "20dp"
+        padding: "20dp"
+        size_hint_y: None
+        height: "400dp"
+
+        # Theme Color Adjustment
+        MDLabel:
+            text: "Theme Color"
+            font_size: "18sp"
+            theme_text_color: "Custom"
+            text_color: 1, 1, 1, 1
+
+        MDSlider:
+            min: 0
+            max: 255
+            value: 128
+            step: 1
+            size_hint_x: 0.8
+            pos_hint: {"center_x": 0.5}
+            on_value: app.change_theme(self.value)
+
+        # Volume Control
+        MDLabel:
+            text: "Volume"
+            font_size: "18sp"
+            theme_text_color: "Custom"
+            text_color: 1, 1, 1, 1
+
+        MDSlider:
+            min: 0
+            max: 100
+            value: 50
+            step: 1
+            size_hint_x: 0.8
+            pos_hint: {"center_x": 0.5}
+            on_value: app.change_volume(self.value)
+
+        # Shuffle and Repeat Options
+        MDLabel:
+            text: "Playback Options"
+            font_size: "18sp"
+            theme_text_color: "Custom"
+            text_color: 1, 1, 1, 1
+
+        MDCheckbox:
+            id: shuffle_checkbox
+            size_hint: None, None
+            size: "48dp", "48dp"
+            pos_hint: {"center_x": 0.5}
+            on_active: app.toggle_shuffle(self.active)
+
+        MDLabel:
+            text: "Shuffle"
+            theme_text_color: "Custom"
+            text_color: 1, 1, 1, 1
+            size_hint_x: None
+            width: "100dp"
+            valign: "middle"
+
+        MDCheckbox:
+            id: repeat_checkbox
+            size_hint: None, None
+            size: "48dp", "48dp"
+            pos_hint: {"center_x": 0.5}
+            on_active: app.toggle_repeat(self.active)
+
+        MDLabel:
+            text: "Repeat"
+            theme_text_color: "Custom"
+            text_color: 1, 1, 1, 1
+            size_hint_x: None
+            width: "100dp"
+            valign: "middle"
+
+    # Save and Apply Settings Button
+    MDRaisedButton:
+        text: "Apply Changes"
+        size_hint_x: 0.8
+        pos_hint: {"center_x": 0.5, "bottom": 0.1}
+        on_release: app.apply_settings()
