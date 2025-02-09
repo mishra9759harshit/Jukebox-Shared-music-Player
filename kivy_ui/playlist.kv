@@ -1,0 +1,29 @@
+MDScreen:
+    name: "playlist"
+    md_bg_color: 0.1, 0.1, 0.1, 1  # Dark theme
+
+    MDLabel:
+        text: "Your Playlist 🎶"
+        font_size: "26sp"
+        pos_hint: {"center_x": 0.5, "top": 0.95}
+        theme_text_color: "Custom"
+        text_color: 1, 1, 1, 1
+        bold: True
+
+    # Scrollable list of songs in the playlist
+    ScrollView:
+        MDList:
+            id: song_list
+
+    MDRaisedButton:
+        text: "➕ Add Music"
+        size_hint_x: 0.8
+        pos_hint: {"center_x": 0.5, "bottom": 0.05}
+        on_release: app.add_music()
+
+    # Swipe-to-remove functionality
+    <OneLineListItem>:
+        on_release: app.play_song(self.text)
+        SwipeToDelete:
+            on_delete: app.remove_song(self.text)
+            delete_button: "Delete"
